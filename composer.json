@@ -1,0 +1,22 @@
+{
+  "name": "zclone/nebula-command",
+  "type": "project",
+  "require": {
+    "php": ">=8.3",
+    "ext-pdo": "*",
+    "cboden/ratchet": "^0.4",
+    "predis/predis": "^2.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Zclone\\": "app/"
+    }
+  },
+  "scripts": {
+    "serve": "php -S 0.0.0.0:8080 -t public",
+    "worker": "php app/jobs/worker.php",
+    "tick": "php app/jobs/tick.php",
+    "websocket": "php app/websockets/server.php"
+  },
+  "license": "proprietary"
+}

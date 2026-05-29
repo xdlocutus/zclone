@@ -1,0 +1,3 @@
+<?php
+namespace Zclone\Core;
+final class Request { public function method(): string { return strtoupper($_SERVER['REQUEST_METHOD'] ?? 'GET'); } public function path(): string { return parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/'; } public function json(): array { $j=json_decode(file_get_contents('php://input') ?: '', true); return is_array($j)?$j:[]; } public function input(string $key, mixed $default=null): mixed { $data=$this->json()+$_POST+$_GET; return $data[$key] ?? $default; } public function userId(): ?int { return isset($_SESSION['user_id']) ? (int)$_SESSION['user_id'] : null; } }
