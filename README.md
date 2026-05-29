@@ -9,14 +9,14 @@ A production-oriented PHP 8.3 realtime browser MMO space strategy platform inspi
 - Game systems: multiple universes, galaxy/system/slot coordinates, planet resources with offline accumulation, buildings and queues, research definitions, fleet dispatch, combat simulator, alliances, marketplace, messages, notifications, achievements, premium QOL transactions.
 - Realtime: Redis-backed event dispatch and queue worker publishing `ResourceUpdated`, `FleetDeparted`, `BuildingFinished`, and other game events; Ratchet-compatible WebSocket server.
 - UI: mobile-first Tailwind/Alpine dashboard with glassmorphism, live resource header, queue cards, sci-fi landing page, PWA manifest, and responsive game modules.
-- Deployment: Docker, Docker Compose, Nginx config, PostgreSQL schema, seed data, and Replit-compatible PHP server command.
+- Deployment: Docker, Docker Compose, Nginx config, MySQL schema, seed data, and Replit-compatible PHP server command.
 
 ## Quick start
 
 ```bash
 cp .env.example .env
 composer install
-docker compose up -d postgres redis
+docker compose up -d mysql redis
 php database/migrate.php
 php database/seed.php
 php -S 0.0.0.0:8080 -t public
