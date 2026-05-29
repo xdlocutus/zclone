@@ -1,5 +1,5 @@
 FROM php:8.3-fpm-alpine
-RUN apk add --no-cache postgresql-dev nginx && docker-php-ext-install pdo pdo_pgsql pdo_mysql opcache
+RUN apk add --no-cache nginx && docker-php-ext-install pdo pdo_mysql opcache
 WORKDIR /var/www/html
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 COPY . .
