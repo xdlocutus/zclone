@@ -1,0 +1,3 @@
+<?php
+namespace Zclone\Core;
+final class Router { private array $routes=[]; public function get(string $p, array|callable $h, array $m=[]): void { $this->add('GET',$p,$h,$m); } public function post(string $p, array|callable $h, array $m=[]): void { $this->add('POST',$p,$h,$m); } public function add(string $method,string $path,array|callable $handler,array $middleware=[]): void { $this->routes[$method][$path]=[$handler,$middleware]; } public function dispatch(Request $r, Container $c): void { [$h,$mw]=$this->routes[$r->method()][$r->path()] ?? [null,[]]; if (!$h) { http_response_code(404); echo 'Not found'; return; } foreach ($mw as $m) if ($c->get($m)->handle($r)===false) return; if (is_array($h)) { $o=$c->get($h[0]); $o->{$h[1]}($r); } else $h($r); } }

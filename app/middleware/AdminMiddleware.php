@@ -1,0 +1,2 @@
+<?php
+namespace Zclone\middleware; use Zclone\Core\Database; use Zclone\Core\Request; use Zclone\Core\Response; final class AdminMiddleware { public function __construct(private Database $db) {} public function handle(Request $r): bool { $u=$this->db->one('select role from users where id=?',[$r->userId()]); if (($u['role']??'')!=='admin') { Response::json(['error'=>'forbidden'],403); return false; } return true; } }

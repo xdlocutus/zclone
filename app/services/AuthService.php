@@ -1,0 +1,4 @@
+<?php
+namespace Zclone\services;
+use Zclone\repositories\UserRepository; use Zclone\Core\Security;
+final class AuthService { public function __construct(private UserRepository $users) {} public function register(string $email,string $username,string $password): int { return $this->users->create(['email'=>$email,'username'=>$username,'password_hash'=>password_hash($password,PASSWORD_DEFAULT),'token'=>bin2hex(random_bytes(24))]); } public function login(string $email,string $password): bool { $u=$this->users->byEmail($email); if (!$u || !password_verify($password,$u['password_hash'])) return false; session_regenerate_id(true); $_SESSION['user_id']=(int)$u['id']; $_SESSION['role']=$u['role']; return true; } public function apiToken(int $userId): string { return Security::jwt(['sub'=>$userId,'scope'=>'api']); } }

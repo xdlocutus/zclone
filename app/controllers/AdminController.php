@@ -1,0 +1,2 @@
+<?php
+namespace Zclone\controllers; use Zclone\Core\Database; use Zclone\Core\Request; use Zclone\Core\Response; final class AdminController { public function __construct(private Database $db) {} public function index(Request $r): void { Response::view('admin',['stats'=>['users'=>$this->db->one('select count(*) c from users')['c']??0,'fleets'=>$this->db->one('select count(*) c from fleet_movements')['c']??0,'queues'=>$this->db->one('select count(*) c from build_queue where completed_at is null')['c']??0]]); } }
